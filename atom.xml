@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://southwindi.xyz</id>
     <title>mio^</title>
-    <updated>2021-06-30T09:19:05.607Z</updated>
+    <updated>2021-06-30T09:21:47.188Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://southwindi.xyz"/>
     <link rel="self" href="https://southwindi.xyz/atom.xml"/>
@@ -16,8 +16,7 @@
         <link href="https://southwindi.xyz/post/c/">
         </link>
         <updated>2021-06-30T08:46:31.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="c">C++</h1>
-<h2 id="多态polymorphism">多态（polymorphism）</h2>
+        <content type="html"><![CDATA[<h2 id="多态polymorphism">多态（polymorphism）</h2>
 <ol>
 <li>
 <p>多态：通常指对于同一个消息、同一种调用，在不同的场合，针对不同的对象下，执行不同的行为。</p>
