@@ -9,7 +9,7 @@
 <meta name="description" content="月夜棹孤舟">
 <meta name="theme-color" content="#000">
 <title>mio^</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1625046171966">
+<link rel="shortcut icon" href="/favicon.ico?v=1625063595073">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -81,19 +81,6 @@
               
                 <a href="/" target="_self">
                   <i class="fa fa-home"></i> 首页
-                </a>
-              
-            </li>
-          
-            
-            
-              
-            
-            <li class="nav-item ">
-              
-              
-                <a href="https://southwindi.xyz/post/c/" target="_self">
-                  <i class="fa fa-globe"></i> C/C++
                 </a>
               
             </li>
@@ -282,12 +269,12 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>3<span class="language" data-lan="minute">分钟</span></span>
+      <span>8<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>682<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1904<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
@@ -312,7 +299,7 @@
               
             
             
-              <p><h2 id="多态polymorphism">多态（polymorphism）</h2>
+              <p><h2 id="继承">继承</h2>
 <ol>
 <li>
 
@@ -651,7 +638,195 @@
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://southwindi.xyz/post/c/"" data-c="
-          &lt;h2 id=&#34;多态polymorphism&#34;&gt;多态（polymorphism）&lt;/h2&gt;
+          &lt;h2 id=&#34;继承&#34;&gt;继承&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;继承的概念：在既有类的基础上产生新的类&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class 派生类
+:public/protected/private 基类
+{
+    
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;派生类的生成过程：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;吸收&lt;/strong&gt;基类成员（数据成员+成员函数）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;改造&lt;/strong&gt;基类成员&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;添加&lt;/strong&gt;自己的新成员&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;继承的局限：无法继承的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;构造函数&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;析构函数&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用户重载的赋值运算符&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用户重载的new/delete运算符&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;友元关系&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;派生类的继承方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;public（公有）继承&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;protected（保护型）继承&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;private（私有）继承&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;派生类的访问权限：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;继承方式&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;基类成员访问权限&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;在派生类中访问权限&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;派生类对象访问&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;公有继承&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;public &lt;br&gt;protected &lt;br&gt;private&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;public &lt;br&gt;protected &lt;br&gt;不可直接访问&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;可直接访问 &lt;br&gt;不可直接访问 &lt;br&gt;不可直接访问&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;保护继承&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;public &lt;br&gt;protected &lt;br&gt;private&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;protected &lt;br&gt;protected &lt;br&gt;不可直接访问&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;不可直接访问&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;私有继承&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;public &lt;br&gt;protected &lt;br&gt;private&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;private &lt;br&gt;private &lt;br&gt;不可直接访问&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;不可直接访问&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;基类中除了私有成员外，在派生类中都可以访问（私有成员不能&lt;strong&gt;直接&lt;/strong&gt;访问）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;派生类对象只能访问&lt;strong&gt;公有继承&lt;/strong&gt;下基类中的&lt;strong&gt;公有&lt;/strong&gt;成员（其他成员均不可&lt;strong&gt;直接&lt;/strong&gt;访问）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;派生类对象的&lt;strong&gt;构造&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;原则&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先构造基类部分，后构造派生类部分；&lt;/li&gt;
+&lt;li&gt;必须将基类构造函数放在派生类构造函数的初始化列表中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;顺序&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;完成对象所占整块内存的开辟，由系统在调用构造函数时自动完成&lt;/li&gt;
+&lt;li&gt;调用基类的构造函数完成基类成员的初始化&lt;/li&gt;
+&lt;li&gt;若派生类中含有&lt;strong&gt;对象成员、const成员、引用成员&lt;/strong&gt;，则必须在初始化列表中完成其初始化&lt;/li&gt;
+&lt;li&gt;完成派生类添加的成员的初始化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;派生类名(总参数表): 基类构造函数(参数表)
+{
+   //函数体 
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;（1）情况一：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;派生类显示定义构造函数&lt;/li&gt;
+&lt;li&gt;基类没有显示定义构造函数（只有默认构造函数）&lt;/li&gt;
+&lt;li&gt;自动调用基类缺省的无参构造函数。（&lt;strong&gt;注意&lt;/strong&gt;：在创建派生类对象时，会调用其构造函数，为了初始化从基类吸收来的数据成员，会调用基类的构造函数完成初始化任务，然后再初始化派生类自己的数据成员，进而执行派生类自己的构造函数）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;（2）情况二：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;派生类没有显示定义构造函数（只有默认构造函数）&lt;/li&gt;
+&lt;li&gt;基类有显示定义构造函数&lt;/li&gt;
+&lt;li&gt;此时基类必须拥有默认构造函数（&lt;strong&gt;注意&lt;/strong&gt;：若不显示的对基类数据成员进行初始化，则会调用基类默认构造函数，若没有默认构造函数，则会报错）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;（3）情况三：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果派生类有构造函数、基类有默认构造函数&lt;/li&gt;
+&lt;li&gt;创建派生类的对象时（未显示初始化基类数据成员），基类的默认构造函数会自动调用&lt;/li&gt;
+&lt;li&gt;如果你想调用基类的有参构造函数，必须要在派生类构造函数的初始化列表中显示调用基类的有参构造函数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;（4）情况四：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;派生类和基类都有构造函数&lt;/li&gt;
+&lt;li&gt;基类没有无参构造函数&lt;/li&gt;
+&lt;li&gt;派生类构造函数必须显示初始化基类数据成员&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;派生类的&lt;strong&gt;销毁&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;顺序&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先调用派生类的析构函数&lt;/li&gt;
+&lt;li&gt;在调用派生类中成员对象的析构函数&lt;/li&gt;
+&lt;li&gt;最后调用基类的析构函数（&lt;strong&gt;注意&lt;/strong&gt;：基类机构函数会被自动调用）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;多基继承（多基派生）&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class 派生类
+:public/protected/private
+,...
+,public/protected/private
+{
+    
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;构造与析构&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每一个基类前都要加上相应的继承方式&lt;/li&gt;
+&lt;li&gt;多个基类构造函数在派生类中的调用顺序与派生类继承基类的顺序一致，与初始化列表的顺序无关&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;多基继承存在两个问题&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;成员名冲突的二义性：类D继承自类A、类B、类C，使用类名+作用域限定符解决&lt;/li&gt;
+&lt;li&gt;菱形继承的二义性问题：类B、类C继承自类A，类D继承自类B、类C，使用B/C虚拟继承A解决（在对象存储布局开始位置产生一个虚基指针）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://southwindi.xyz/post-images/1625059598880.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;基类与派生类间的相互转换&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;派生类适应于基类&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;派生类对象可以赋值给基类对象	base = derived&lt;/li&gt;
+&lt;li&gt;基类对象可以绑定到派生类对象    Base&amp;amp; base = derived&lt;/li&gt;
+&lt;li&gt;声明基类的指针可以指向派生类的对象（向上转型）Base* base = &amp;amp;derived&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果函数的形参是基类对象、基类对象的引用、基类对象的指针类型，在进行函数调用时，相应的实参可以是派生类对象&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基类不适应于派生类&lt;/strong&gt;：&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://southwindi.xyz/post-images/1625063589752.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;多态polymorphism&#34;&gt;多态（polymorphism）&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;多态：通常指对于同一个消息、同一种调用，在不同的场合，针对不同的对象下，执行不同的行为。&lt;/p&gt;
@@ -686,7 +861,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://southwindi.xyz/post-images/1625044212943.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://southwindi.xyz/post-images/1625044212943.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;lt;iostream&amp;gt;
 using std::cout;
 using std::endl;
