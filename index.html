@@ -9,7 +9,7 @@
 <meta name="description" content="月夜棹孤舟">
 <meta name="theme-color" content="#000">
 <title>mio^</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1625063595073">
+<link rel="shortcut icon" href="/favicon.ico?v=1625064614114">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -274,7 +274,7 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1904<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>2013<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
@@ -815,14 +815,19 @@
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;基类与派生类间的相互转换&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;派生类适应于基类&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;派生类适应于基类（向上转型）&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;派生类对象可以赋值给基类对象	base = derived&lt;/li&gt;
 &lt;li&gt;基类对象可以绑定到派生类对象    Base&amp;amp; base = derived&lt;/li&gt;
-&lt;li&gt;声明基类的指针可以指向派生类的对象（向上转型）Base* base = &amp;amp;derived&lt;/li&gt;
+&lt;li&gt;声明基类的指针可以指向派生类的对象    Base* base = &amp;amp;derived&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;如果函数的形参是基类对象、基类对象的引用、基类对象的指针类型，在进行函数调用时，相应的实参可以是派生类对象&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;基类不适应于派生类&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基类不适应于派生类（向下转型）&lt;/strong&gt;：C++语法规则不承认，只能利用强制转换&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若用派生类指针指向基类对象，派生类指针可以操作的内存可能超越基类数据成员所占用的内存，造成内存越界&lt;/li&gt;
+&lt;li&gt;强制转换：Derived* derived = static_cast&amp;lt;Derived*&amp;gt;(&amp;amp;base)，不安全的向下转型&lt;/li&gt;
+&lt;li&gt;强制转换：Base* base = &amp;amp;derived1;   Derived* derived2 = static_cast&amp;lt;Derived*&amp;gt;(base)，安全的向下转型&lt;/li&gt;
+&lt;/ul&gt;
 &lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://southwindi.xyz/post-images/1625063589752.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
