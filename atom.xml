@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://southwindi.xyz</id>
     <title>mio^</title>
-    <updated>2021-06-22T18:23:35.938Z</updated>
+    <updated>2021-06-30T08:48:46.956Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://southwindi.xyz"/>
     <link rel="self" href="https://southwindi.xyz/atom.xml"/>
@@ -10,6 +10,138 @@
     <logo>https://southwindi.xyz/images/avatar.png</logo>
     <icon>https://southwindi.xyz/favicon.ico</icon>
     <rights>All rights reserved 2021, mio^</rights>
+    <entry>
+        <title type="html"><![CDATA[C++]]></title>
+        <id>https://southwindi.xyz/post/c/</id>
+        <link href="https://southwindi.xyz/post/c/">
+        </link>
+        <updated>2021-06-30T08:46:31.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="c">C++</h1>
+<h2 id="多态polymorphism">多态（polymorphism）</h2>
+<ol>
+<li>
+<p>多态：通常指对于同一个消息、同一种调用，在不同的场合，针对不同的对象下，执行不同的行为。</p>
+</li>
+<li>
+<p>使用多态的原因</p>
+<ul>
+<li>代码复用</li>
+<li>解决紧耦合问题，提高程序的扩展性</li>
+</ul>
+</li>
+<li>
+<p>多态的类型</p>
+<ul>
+<li>静态多态（编译时多态）：函数重载、运算符重载、模板（编译时确定）</li>
+<li>动态多态（运行时多态）：通过<strong>虚函数</strong>体现（运行时确定）</li>
+</ul>
+</li>
+<li>
+<p>虚函数定义</p>
+<ul>
+<li>在基类中被声明为<strong>virtual</strong>，并在一个或者多个派生类中被<strong>重新定义</strong>的成员函数</li>
+<li>如果一个基类的成员函数定义为虚函数，那么它在所有的派生类中也为虚函数，即使省略了virtual关键字</li>
+<li>虚函数在派生类中<strong>重新定义</strong>时，除函数体外，其格式应保持基类的虚函数相同</li>
+</ul>
+</li>
+<li>
+<p>虚函数的实现机制</p>
+<ul>
+<li>基类中定义一个虚函数后，创建基类对象时，会在其存储布局的开始位置产生一个虚函数指针，该虚函数指针指向基类的虚函数表，该虚表存放的是基类虚函数的入口地址</li>
+<li>派生类继承基类时，就会吸收基类的虚函数，创建派生类对象时，也会在其内存布局的开始位置产生一个虚函数指针，指向派生类自己的虚函数表，如果派生类对该虚函数进行重定义，就会将虚表中的虚函数入口地址进行替换，否则，仍然保存基类的虚函数的入口地址</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="file://C:/Users/spikelili/AppData/Roaming/Typora/typora-user-images/image-20210630162326330.png?lastModify=1625041486" alt="img" loading="lazy"></figure>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+using std::cout;
+using std::endl;
+
+class Base
+{
+public:
+    Base(int base = 0):base_(base)
+    {
+        cout &lt;&lt; &quot;Base()&quot; &lt;&lt; endl;
+    }
+
+    virtual void print()
+    {
+        cout &lt;&lt; &quot;Base::base_ = &quot; &lt;&lt; base_ &lt;&lt; endl;
+    }
+
+    ~Base()
+    {
+        cout &lt;&lt; &quot;~Base()&quot; &lt;&lt; endl;
+    }
+private:
+    long base_;
+};
+
+class Derived
+:public Base
+{
+public:
+    Derived(int base, int derived):Base(base), derived_(derived)
+    {
+        cout &lt;&lt; &quot;Derived()&quot; &lt;&lt; endl;
+    }
+
+    void print()
+    {
+        cout &lt;&lt; &quot;Derived::derived_ = &quot; &lt;&lt; derived_ &lt;&lt; endl;
+    }
+
+    ~Derived()
+    {
+        cout &lt;&lt; &quot;~Derived()&quot; &lt;&lt; endl;
+    }
+
+private:
+    long derived_;
+};
+
+void func(Base* pbase)
+{
+    pbase-&gt;print();
+}
+
+int main()
+{
+    cout &lt;&lt; &quot;sizeof(Base) = &quot; &lt;&lt; sizeof(Base) &lt;&lt; endl;
+    cout &lt;&lt; &quot;sizeof(Derived) = &quot; &lt;&lt; sizeof(Derived) &lt;&lt; endl;
+    Base base(10);
+    Derived derived(20, 30);
+    func(&amp;base);
+    func(&amp;derived);
+    return 0;
+}
+/*
+测试结果：
+sizeof(Base) = 16	//base_占8字节、虚函数指针占8字节
+sizeof(Derived) = 24//base_占8字节、derived_占8字节、虚函数指针占8字节
+Base()
+Base()
+Derived()
+Base::base_ = 10
+Derived::derived_ = 30
+~Derived()
+~Base()
+~Base()
+*/
+</code></pre>
+</li>
+<li>
+<p>动态激活的五个条件</p>
+<ul>
+<li>基类定义了虚函数</li>
+<li>派生类重定义了该虚函数</li>
+<li>创建派生类对象</li>
+<li>基类指针指向派生类</li>
+<li>基类指针调用虚函数</li>
+</ul>
+</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://southwindi.xyz/post/hello-gridea/</id>
