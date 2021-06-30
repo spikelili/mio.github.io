@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://southwindi.xyz</id>
     <title>mio^</title>
-    <updated>2021-06-30T08:54:54.699Z</updated>
+    <updated>2021-06-30T09:11:34.580Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://southwindi.xyz"/>
     <link rel="self" href="https://southwindi.xyz/atom.xml"/>
@@ -50,7 +50,9 @@
 <li>基类中定义一个虚函数后，创建基类对象时，会在其存储布局的开始位置产生一个虚函数指针，该虚函数指针指向基类的虚函数表，该虚表存放的是基类虚函数的入口地址</li>
 <li>派生类继承基类时，就会吸收基类的虚函数，创建派生类对象时，也会在其内存布局的开始位置产生一个虚函数指针，指向派生类自己的虚函数表，如果派生类对该虚函数进行重定义，就会将虚表中的虚函数入口地址进行替换，否则，仍然保存基类的虚函数的入口地址</li>
 </ul>
-<figure data-type="image" tabindex="1"><img src="file://C:/Users/spikelili/AppData/Roaming/Typora/typora-user-images/image-20210630162326330.png?lastModify=1625041486" alt="img" loading="lazy"></figure>
+</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://southwindi.xyz/post-images/1625044212943.png" alt="" loading="lazy"></figure>
 <pre><code class="language-c++">#include &lt;iostream&gt;
 using std::cout;
 using std::endl;
@@ -128,7 +130,7 @@ Derived::derived_ = 30
 ~Base()
 */
 </code></pre>
-</li>
+<ol start="6">
 <li>
 <p>动态激活的五个条件</p>
 <ul>
