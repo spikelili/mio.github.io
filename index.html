@@ -9,7 +9,7 @@
 <meta name="description" content="月夜棹孤舟">
 <meta name="theme-color" content="#000">
 <title>mio^</title>
-<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/spikelili/mio.github.io@main/favicon.ico?v=1625108167938">
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/spikelili/mio.github.io@main/favicon.ico?v=1625305311709">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spikelili/mio.github.io@main/media/css/gemini.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spikelili/mio.github.io@main/media/fonts/font-awesome.css">
 <link
@@ -269,12 +269,12 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>8<span class="language" data-lan="minute">分钟</span></span>
+      <span>10<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>2019<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>2582<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
@@ -556,7 +556,7 @@
         <a class="result-title" style="opacity: 0;" href="https://southwindi.xyz/post/c/"" data-c="
           &lt;p&gt;😅😅😅C/C++学习笔记😨&lt;/p&gt;
 &lt;!-- more --&gt;
-&lt;h2 id=&#34;继承&#34;&gt;继承&lt;/h2&gt;
+&lt;h1 id=&#34;继承&#34;&gt;继承&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;继承的概念：在既有类的基础上产生新的类&lt;/p&gt;
@@ -749,7 +749,7 @@
 &lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://southwindi.xyz/post-images/1625063589752.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;多态polymorphism&#34;&gt;多态（polymorphism）&lt;/h2&gt;
+&lt;h1 id=&#34;多态&#34;&gt;多态&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;多态：通常指对于同一个消息、同一种调用，在不同的场合，针对不同的对象下，执行不同的行为。&lt;/p&gt;
@@ -873,7 +873,41 @@ Derived::derived_ = 30
 &lt;li&gt;基类指针调用虚函数&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;不能设置为虚函数的函数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;普通函数：定义虚函数的目的是为了重写达到多态，将普通函数声明为虚函数没有意义，编译器在编译时就绑定了它&lt;/li&gt;
+&lt;li&gt;静态成员函数：静态成员函数对于每个类都只有一份代码，所有对象都可共享这段代码，没有动态绑定的必要（静态函数发生在编译时，虚函数体现多态发生在运行时）&lt;/li&gt;
+&lt;li&gt;内联成员函数：内联函数的目的是减少函数调用的代价，其在代码中直接展开。但虚函数需要创建虚函数表，二者不能统一。而且，内联函数在编译时被展开，虚函数在运行时才动态绑定&lt;/li&gt;
+&lt;li&gt;构造函数：从语义上讲，构造函数用于初始化对象，此时对象还没有完全生成，其内存布局也还不完整，虚函数指针还不存在&lt;/li&gt;
+&lt;li&gt;友元函数：普通函数声明为一个类友元时，它并不是该类的成员函数，自然不能在该类中将其声明为虚函数。但一个成员函数可以在其所在类中声明为虚函数，同时作为另一个类的友元。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;虚函数的访问&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;指针访问：&lt;/p&gt;
+&lt;p&gt;（1）使用指针访问非虚函数时，编译器根据指针本身的类型来决定调用的函数，而不是根据指针所指对象的类型&lt;/p&gt;
+&lt;p&gt;（2）使用指针访问虚函数时，编译器根据指针所指对象的类型来决定要调用的函数（&lt;strong&gt;动态&lt;/strong&gt;），而与指针的类型无关&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;引用访问：与指针类似，不同在于引用一经声明，不管引用变量自身如何改变，其调用的函数不会再改变&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对象访问：通过对象名来调用，此时编译器采用&lt;strong&gt;静态联编&lt;/strong&gt;，无法体现多态特性&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;成员函数中访问：在类的成员函数中访问该类层次中的虚函数，采用动态联编，要使用this指针&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在构造、析构函数中访问：采用静态联编&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
+&lt;h1 id=&#34;移动语义&#34;&gt;移动语义&lt;/h1&gt;
+&lt;h2 id=&#34;右值引用&#34;&gt;右值引用&lt;/h2&gt;
 ">C++</a>
       </div>
       
