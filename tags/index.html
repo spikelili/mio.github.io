@@ -9,7 +9,7 @@
 <meta name="description" content="月夜棹孤舟">
 <meta name="theme-color" content="#000">
 <title>mio^</title>
-<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/spikelili/mio.github.io@main/favicon.ico?v=1625305311709">
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/spikelili/mio.github.io@main/favicon.ico?v=1625573278435">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spikelili/mio.github.io@main/media/css/gemini.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spikelili/mio.github.io@main/media/fonts/font-awesome.css">
 <link
@@ -546,6 +546,49 @@
         <a class="result-title" style="opacity: 0;" href="https://southwindi.xyz/post/c/"" data-c="
           &lt;p&gt;😅😅😅C/C++学习笔记😨&lt;/p&gt;
 &lt;!-- more --&gt;
+&lt;h1 id=&#34;hello-world&#34;&gt;hello world&lt;/h1&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;lt;iostream&amp;gt;
+//c++头文件没有.h后缀：c++的头文件使用模板进行编写的
+//模板的特点：必须要知道所有的实现才能正常进行编译
+
+//命名空间
+using namespace std;
+
+//函数声明,以分号结尾
+//函数声明可以有多次
+void test();
+
+//函数定义，以花括号结尾
+//函数定义只能有一次
+void test1(){  }
+
+int main()
+{
+    //c中的写法
+    printf(&amp;quot;hello world\n&amp;quot;);
+
+    //cout，标准输出流
+    //&amp;lt;&amp;lt;，输出流运算符
+    //&amp;quot;Hello world&amp;quot;，字符串常量
+    //endl，换行,end of line
+    cout &amp;lt;&amp;lt; &amp;quot;Hello world&amp;quot; &amp;lt;&amp;lt; endl;
+
+    //对输出流运算符进行了重载
+    operator&amp;lt;&amp;lt;(cout, &amp;quot;Hello world&amp;quot;);
+    cout.operator&amp;lt;&amp;lt;(endl);
+
+    operator&amp;lt;&amp;lt;(cout, &amp;quot;Hello world&amp;quot;).operator&amp;lt;&amp;lt;(endl);
+
+    //cin，标准输入流
+    //&amp;gt;&amp;gt;，输入流运算符
+    int num = 10;
+    cin &amp;gt;&amp;gt; num;
+    cout &amp;lt;&amp;lt; num &amp;lt;&amp;lt; endl;
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;命名空间&#34;&gt;命名空间&lt;/h1&gt;
+&lt;h2 id=&#34;命名空间的作用&#34;&gt;命名空间的作用&lt;/h2&gt;
 &lt;h1 id=&#34;继承&#34;&gt;继承&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;
