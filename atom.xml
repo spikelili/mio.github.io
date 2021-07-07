@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://southwindi.xyz</id>
     <title>mio^</title>
-    <updated>2021-07-06T12:08:02.871Z</updated>
+    <updated>2021-07-07T12:06:34.508Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://southwindi.xyz"/>
     <link rel="self" href="https://southwindi.xyz/atom.xml"/>
@@ -61,8 +61,136 @@ int main()
     return 0;
 }
 </code></pre>
-<h1 id="命名空间">命名空间</h1>
-<h2 id="命名空间的作用">命名空间的作用</h2>
+<h1 id="c基础">C++基础</h1>
+<h2 id="命名空间">命名空间</h2>
+<p><strong>1.命名空间的作用</strong></p>
+<ul>
+<li>解决名字冲突（同一个作用域中有两个或多个同名实体）</li>
+</ul>
+<p><strong>2.定义和访问</strong></p>
+<ul>
+<li>
+<p>命名空间中可以定义变量、常量、函数、结构体、类、模板、命名空间</p>
+<pre><code class="language-c++">namespace wd
+{
+void print()
+{
+    cout &lt;&lt; &quot;void print()&quot; &lt;&lt; endl;
+}
+}
+
+void test()
+{
+    print();//error
+    wd::print();//ok
+}
+</code></pre>
+</li>
+<li>
+<p>命名空间（包括标准命名空间）可以定义多次（可扩展）</p>
+<pre><code class="language-c++">//与结构体对比：结构体是无法扩展的，不能进行重复定义
+namespace wd
+{
+int number = 10;
+}
+
+namespace wd
+{
+void print()
+{
+    cout &lt;&lt; &quot;void print()&quot; &lt;&lt; endl;
+}
+}
+</code></pre>
+</li>
+</ul>
+<p><strong>3.三种使用形式</strong></p>
+<ul>
+<li>
+<p>using编译指令</p>
+<pre><code class="language-c++">//一次性将命名空间中的全部实体引出
+//使用方便，但是还是容易产生名字冲突
+using namespace std;
+</code></pre>
+</li>
+<li>
+<p>作用域限定符</p>
+<pre><code class="language-c++">//每次使用某个命名空间的实体时，都以'命名空间::实体'的形式
+//降低了冲突的概率，但显得比较冗余
+void print()
+{
+	std::cout &lt;&lt; &quot;hello&quot; &lt;&lt; std::endl;    
+}
+</code></pre>
+</li>
+<li>
+<p>using声明机制</p>
+<pre><code class="language-c++">//using声明机制的作用域是从using语句开始到using所在的作用域结束
+//同一作用域中，声明的不同命名空间的实体，不能同名，否则发生重定义
+using std::endl;
+using std::cout;
+</code></pre>
+</li>
+</ul>
+<p><strong>4.匿名命名空间</strong></p>
+<ul>
+<li>
+<p>只在本文件的作用域内有效，它的作用域是从匿名命名空间声明开始到本文件结束</p>
+<pre><code class="language-c++">//全局变量
+int val = 10;
+
+//wd命名空间
+namespace wd
+{
+    int val = 20;
+}
+
+//匿名命名空间
+namespace 
+{
+int number = 10;
+}
+
+void test()
+{
+    int val = 30;
+    //全局变量，匿名命名空间
+    cout &lt;&lt; ::val &lt;&lt; endl;
+    cout &lt;&lt; ::number &lt;&lt; endl;
+    //wd中实体
+    cout &lt;&lt; wd::val &lt;&lt; endl;
+    //局部变量
+    cout &lt;&lt; val &lt;&lt; endl;
+    //兼容c语言，printf()全局唯一，所以可以不加::
+    printf(&quot;hello&quot;);
+    ::printf(&quot;hello&quot;);
+}
+</code></pre>
+</li>
+</ul>
+<p><strong>5.总结</strong></p>
+<ul>
+<li>提倡在已命名的名称空间中定义变量，而不是直接定义外部全局变量或者静态全局变量</li>
+<li>如果开发了一个函数库或者类库，提倡将其放在一个名称空间中</li>
+<li>对于using 声明，首先将其作用域设置为局部而不是全局</li>
+<li>不要在头文件中使用using编译指令，这样，使得可用名称变得模糊，容易出现二义性</li>
+<li>包含头文件的顺序可能会影响程序的行为，如果非要使用using编译指令，建议放在所有#include预编译指令后</li>
+</ul>
+<h2 id="const关键字的用法">const关键字的用法</h2>
+<p><strong>1.修饰普通变量</strong></p>
+<ul>
+<li>
+<p>​</p>
+<pre><code class="language-c++">void test()
+{
+    //const修饰的变量称为const常量，常量是不可以修改的
+    const int number1 = 10;//初始化
+    int const number2 = 20;//const在int前后无影响
+    number = 20;//error，不能修改常量（赋值操作）
+}
+</code></pre>
+</li>
+</ul>
 <h1 id="继承">继承</h1>
 <ol>
 <li>
@@ -415,6 +543,312 @@ Derived::derived_ = 30
 </ol>
 <h1 id="移动语义">移动语义</h1>
 <h2 id="右值引用">右值引用</h2>
+<h1 id="标准模板库stl">标准模板库STL</h1>
+<h2 id="模板">模板</h2>
+<p><strong>1.模板的作用</strong></p>
+<ul>
+<li>解决强类型语言的严格性与灵活性的冲突</li>
+<li>强类型语言：C++/Java，有类型定义，能进行安全检查，编译型语言，但灵活性不够</li>
+<li>弱类型语言：js/python，定义变量直接使用let/var，没有严格的类型，解释型语言，错误留到运行时，灵活但不安全</li>
+</ul>
+<p><strong>2.模板的特征</strong></p>
+<ul>
+<li>
+<p>定义模板</p>
+<pre><code class="language-c++">//&lt;&gt;为模板参数列表
+//class/typename在此处作用完全一样
+template &lt;class/typename T&gt;
+</code></pre>
+</li>
+<li>
+<p>函数模板</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+using std::endl;
+using std::cout;
+
+//模板不能将声明与实现分开（类似于inline），可以在头文件中实现，或者以包含'.tcc'文件的形式
+//调用函数add()时，[函数模板]根据传入参数进行类型推导（实例化）得到[模板函数]
+template &lt;typename T&gt;
+T add(T x, T y)
+{
+    cout &lt;&lt; &quot;T add(T, T)&quot; &lt;&lt; endl;
+    return x + y;
+}
+
+//1.函数模板与普通函数可以进行重载
+//2.普通函数优先于函数模板执行
+int add(int x, int y)
+{
+    cout &lt;&lt; &quot;int add(int, int)&quot; &lt;&lt; endl;
+    return x + y;
+}
+//3.函数模板与函数模板之间可以进行重载
+template &lt;typename T&gt;
+T add(T x, T y, T z)
+{
+    cout &lt;&lt; &quot;T add(T, T, T)&quot; &lt;&lt; endl;
+    return x + y + z;
+}
+
+//模板特化
+//1.全特化：将模板的参数[全部]以特殊形式写出
+//2.偏特化：将模板的参数[部分]以特殊形式写出
+template &lt;&gt;
+const char* add(const char* p1, const char* p2)
+{
+    size_t len = strlen(p1) + strlen(p2) + 1;
+    char* ptmp = new char[10]();
+    strcpy(ptmp, p1);
+    strcat(ptmp, p2);
+    return ptmp;
+}
+
+//模板参数
+//1.类型参数
+//2.非类型参数，整型：bool/short/int/long/long long（与浮点数区别）
+//3.类型参数、非类型参数都可以设置默认值
+template &lt;typename T = int, short kMin = 10&gt;
+T multiply(T x, T y)
+{
+    return x * y * kMin;
+}
+
+class Point
+{
+public:
+    //成员函数可以写成模板
+    template &lt;typename T = int&gt;
+    T func()
+    {
+        return (T)_dx;
+    }
+private:
+    double _dx;
+    double _dy;
+};
+
+void test()
+{
+    int x1 = 3, y1 = 4, z1 = 5;
+    
+    //显示实例化：不需要进行推导
+    cout &lt;&lt; add&lt;int&gt;(x1, y1) &lt;&lt; endl;
+    
+    //隐式实例化：需要进行类型推导
+    cout &lt;&lt; add(x1, y1) &lt;&lt; endl;
+    cout &lt;&lt; add(x1, y1, z1) &lt;&lt; endl;
+    
+    double x2 = 3.3;
+    
+    //如果只有函数模板形式，x1、x2类型不同会报错
+    //若有具体类型，则会进行隐式转换，这里将double--&gt;int
+    cout &lt;&lt; add(x1, x2) &lt;&lt; endl;
+    
+    const char* p1 = &quot;111&quot;;
+    const char* p2 = &quot;222&quot;;
+    cout &lt;&lt; add(p1, p2) &lt;&lt; endl;
+    
+    cout &lt;&lt; multiply(x, y) &lt;&lt; endl;
+    cout &lt;&lt; multiply&lt;double, 5&gt;(x, y) &lt;&lt; endl;
+    
+    Point pt(1.2, 1.3);
+    cout &lt;&lt; pt.func&lt;int&gt;() &lt;&lt; endl;
+}
+
+int main()
+{
+    test();
+    return 0;
+}
+/*
+测试结果
+T add(T, T)
+7
+
+int add(int, int)
+7
+
+T add(T, T, T)
+12
+
+111222
+*/
+</code></pre>
+</li>
+<li>
+<p>类模板</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using std::endl;
+using std::cout;
+using std::string;
+
+template &lt;typename T, size_t kSize = 10&gt;
+class Stack
+{
+public:
+    Stack():top_(-1), data_(new T[kSize]()){  }
+    ~Stack();
+    bool full() const;
+    bool empty() const;
+    void push(const T&amp; t);
+    void pop();
+    T top();
+private:
+    int top_;
+    T* data_;
+};
+
+template &lt;typename T, size_t kSize&gt;
+Stack&lt;T, kSize&gt;::~Stack()
+{
+    if(data_)
+    {
+        delete [] data_;
+        data_ = nullptr;
+    }
+}
+
+template &lt;typename T, size_t kSize&gt;
+bool Stack&lt;T, kSize&gt;::full() const
+{
+    return top_ == kSize - 1;
+}
+
+template &lt;typename T, size_t kSize&gt;
+bool Stack&lt;T, kSize&gt;::empty() const
+{
+    return top_ == -1;
+}
+
+template &lt;typename T, size_t kSize&gt;
+void Stack&lt;T, kSize&gt;::push(const T&amp; t)
+{
+    if(full())
+    {
+        cout &lt;&lt; &quot;stack is full&quot; &lt;&lt; endl;
+        return;
+    }
+    data_[++top_] = t;
+}
+
+template &lt;typename T, size_t kSize&gt;
+void Stack&lt;T, kSize&gt;::pop()
+{
+    if(empty())
+    {
+        cout &lt;&lt; &quot;stack is empty&quot; &lt;&lt; endl;
+        return;
+    }
+    --top_;
+}
+
+template &lt;typename T, size_t kSize&gt;
+T Stack&lt;T, kSize&gt;::top()
+{
+    return data_[top_];
+}
+
+void test()
+{
+    Stack&lt;int&gt; st1;
+    Stack&lt;double, 20&gt; st2;
+    Stack&lt;string, 30&gt; st3;
+}
+
+int main()
+{
+    test();
+    return 0;
+}
+</code></pre>
+</li>
+<li>
+<p>可变模板参数</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+using std::endl;
+using std::cout;
+
+//Args模板参数包
+template &lt;typename... Args&gt;
+//args函数参数包
+void display(Args... args)
+{
+    cout &lt;&lt; &quot;Args_size = &quot; &lt;&lt; sizeof...(Args) &lt;&lt; endl;
+    cout &lt;&lt; &quot;args_size = &quot; &lt;&lt; sizeof...(args) &lt;&lt; endl;
+}
+
+//递归打印出口
+void print()
+{
+    cout &lt;&lt; endl;
+}
+//...在参数左边为打包，在参数右边为解包
+template &lt;typename T, typename... Args&gt;
+void print(T t, Args... args)
+{
+    cout &lt;&lt; t &lt;&lt; endl;
+    print(args...);
+}
+
+//递归出口
+int sum()
+{
+    return 0;
+}
+template &lt;typename U, typename... T&gt;
+U sum(U u, T ...t)
+{
+    return u + sum(t...);
+}
+
+void test()
+{
+    display();
+    //template &lt;typename T&gt;
+    //void display(T t)
+    display(1);
+
+    //template &lt;typename T1, typename T2, typename T3, typename T4&gt;
+    //void display(T1 t1, T2 t2, T3 t3, T4 t4)
+    display(1, 2.2, true, &quot;hello&quot;);
+
+    cout &lt;&lt; endl;
+
+    //递归打印
+    print(1);
+    print(1, 2.2, true, &quot;hello&quot;);
+
+    //求和
+    cout &lt;&lt; &quot;1~10_sum = &quot; &lt;&lt; sum(1,2,3,4,5,6,7,8,9,10) &lt;&lt; endl;
+}
+
+int main()
+{
+    test();
+    return 0;
+}
+/*
+测试结果
+Args_size = 0
+args_size = 0
+Args_size = 1
+args_size = 1
+Args_size = 4
+args_size = 4
+
+1
+
+1
+2.2
+1
+hello
+
+1~10_sum = 55
+*/
+</code></pre>
+</li>
+</ul>
 ]]></content>
     </entry>
 </feed>
