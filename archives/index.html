@@ -9,7 +9,7 @@
 <meta name="description" content="月夜棹孤舟">
 <meta name="theme-color" content="#000">
 <title>mio^</title>
-<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/spikelili/mio.github.io@main/favicon.ico?v=1625659590594">
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/spikelili/mio.github.io@main/favicon.ico?v=1626873212844">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spikelili/mio.github.io@main/media/css/gemini.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spikelili/mio.github.io@main/media/fonts/font-awesome.css">
 <link
@@ -571,10 +571,10 @@ int main()
 &lt;ul&gt;
 &lt;li&gt;解决名字冲突（同一个作用域中有两个或多个同名实体）&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;2.定义和访问&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.命名空间定义和访问&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;命名空间中可以定义变量、常量、函数、结构体、类、模板、命名空间&lt;/p&gt;
+&lt;li&gt;命名空间中可以定义变量、常量、函数、结构体、类、模板、命名空间&lt;/li&gt;
+&lt;/ul&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;namespace wd
 {
 void print()
@@ -586,39 +586,27 @@ void print()
 void test()
 {
     print();//error
+    //采用命名空间名字+作用域限定符
     wd::print();//ok
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;命名空间（包括标准命名空间）可以定义多次（可扩展）&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//与结构体对比：结构体是无法扩展的，不能进行重复定义
+
+//可以扩展命名空间（包括标准命名空间）
 namespace wd
 {
 int number = 10;
 }
-
-namespace wd
-{
-void print()
-{
-    cout &amp;lt;&amp;lt; &amp;quot;void print()&amp;quot; &amp;lt;&amp;lt; endl;
-}
-}
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;3.三种使用形式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.命名空间的三种使用形式&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;using编译指令&lt;/p&gt;
+&lt;li&gt;using编译指令&lt;/li&gt;
+&lt;/ul&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//一次性将命名空间中的全部实体引出
 //使用方便，但是还是容易产生名字冲突
 using namespace std;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;作用域限定符&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;作用域限定符&lt;/li&gt;
+&lt;/ul&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//每次使用某个命名空间的实体时，都以&#39;命名空间::实体&#39;的形式
 //降低了冲突的概率，但显得比较冗余
 void print()
@@ -626,20 +614,18 @@ void print()
 	std::cout &amp;lt;&amp;lt; &amp;quot;hello&amp;quot; &amp;lt;&amp;lt; std::endl;    
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;using声明机制&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;using声明机制&lt;/li&gt;
+&lt;/ul&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//using声明机制的作用域是从using语句开始到using所在的作用域结束
 //同一作用域中，声明的不同命名空间的实体，不能同名，否则发生重定义
 using std::endl;
 using std::cout;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;4.匿名命名空间&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;只在本文件的作用域内有效，它的作用域是从匿名命名空间声明开始到本文件结束&lt;/p&gt;
+&lt;li&gt;只在本文件的作用域内有效，它的作用域是从匿名命名空间声明开始到本文件结束&lt;/li&gt;
+&lt;/ul&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//全局变量
 int val = 10;
 
@@ -670,8 +656,6 @@ void test()
     ::printf(&amp;quot;hello&amp;quot;);
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;5.总结&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;提倡在已命名的名称空间中定义变量，而不是直接定义外部全局变量或者静态全局变量&lt;/li&gt;
@@ -682,19 +666,332 @@ void test()
 &lt;/ul&gt;
 &lt;h2 id=&#34;const关键字的用法&#34;&gt;const关键字的用法&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;1.修饰普通变量&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;​&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;void test()
 {
     //const修饰的变量称为const常量，常量是不可以修改的
     const int number1 = 10;//初始化
     int const number2 = 20;//const在int前后无影响
     number = 20;//error，不能修改常量（赋值操作）
+    const int val;//error，常量必须初始化
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;const常量和宏定义的区别？&lt;/p&gt;
+&lt;p&gt;（1）编译器处理方式不同。宏定义在预处理阶段展开，做字符串替换；而const常量是在编译时确定&lt;/p&gt;
+&lt;p&gt;（2）类型和安全检查不同。宏定义没有类型，不做任何检查，运行时bug才会体现；const常量有具体的类型，在编译时会执行检查&lt;/p&gt;
+&lt;p&gt;（3）在使用中应尽量使用const替换宏定义，可以减小犯错的概率&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;2.修饰指针&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;void test()
+{
+    int val1 = 10;
+    //指向val1
+    int* p1 = &amp;amp;val1;
+    //修改指向的值
+    *p1 = 1;
+    //修改指针指向
+    p1 = nullptr;//c++11中定义的空指针形式
+    
+    int val2 = 20;
+    //const修饰*p2，为常量指针（point to const），*p2不能修改
+    const int* p2 = &amp;amp;val2;
+    *p2 = 22;//error，不能修改指针所指的值
+    p2 = &amp;amp;val1;//ok，可以改变指针的指向
+    
+    int val3 = 30;
+    //const修饰p3，为指针常量（const point），p3不能修改
+    int* const p3 = &amp;amp;val3;
+    *p3 = 33;//ok，可以修改指针所指的值
+    p3 = &amp;amp;val1;//error，不可以改变指针的指向
+    
+    int val4 = 40;
+    //指针指向、指针指向的值都不能改变
+    const int* const p4 = &amp;amp;val4;
+    *p4 = 44;//error
+    p4 = &amp;amp;val1;//error
+    
+    
+    //函数指针
+    int (*pf)();
+    //指针函数
+    int* func();
+    //数组指针
+    int (*pArray)[];
+    //指针数组
+    int* pArray[];
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;3.const修饰成员函数&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//const成员函数的this指针类型为const * const（双const）
+//不能修改数据成员
+class test
+{
+public:
+    void show() const
+    {
+        cout &amp;lt;&amp;lt; &amp;quot;show()&amp;quot; &amp;lt;&amp;lt; endl;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;4.const修饰对象&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//只能在初始化列表中进行初始化，且不能修改
+class test
+{
+public:
+    test(int x): _x(x){ }
+private:
+    const int _x;
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;newdelete表达式&#34;&gt;new/delete表达式&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;malloc/free&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//1.申请空间
+int* pInt = (int*)malloc(sizeof(int));
+//2.初始化
+memset(pInt, 0, sizeof(int));
+//3.赋值
+*pInt = 10;
+//4.释放
+free(pInt);
+pInt = nullptr;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;new/delete&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//1.申请空间、初始化、赋值
+int* pInt = new int(100);
+//2.释放
+delete pInt;
+pInt = nullptr;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;new和malloc的区别&lt;/p&gt;
+&lt;p&gt;（1）new分配内存按照&lt;strong&gt;数据类型&lt;/strong&gt;进行分配，malloc分配内存按照指定的&lt;strong&gt;大小&lt;/strong&gt;分配&lt;/p&gt;
+&lt;p&gt;（2）new返回的是指定对象的指针，而malloc返回的是void*，因此malloc的返回值一般都需要进行类型转化&lt;/p&gt;
+&lt;p&gt;（3）new不仅分配一段内存，而且会调用构造函数，malloc不会&lt;/p&gt;
+&lt;p&gt;（4）new分配的内存要用delete销毁，malloc要用free来销毁；delete销毁的时候会调用对象的析构函数，而free则不会&lt;/p&gt;
+&lt;p&gt;（5）new是一个&lt;strong&gt;操作符&lt;/strong&gt;可以重载，malloc是一个&lt;strong&gt;库函数&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;（6）malloc分配的内存不够的时候，可以用realloc扩容&lt;/p&gt;
+&lt;p&gt;（7）new如果分配失败了会抛出bad_malloc的异常，而malloc失败了会返回NULL&lt;/p&gt;
+&lt;p&gt;（8）申请数组时：new[]一次分配所有内存，多次调用构造函数，搭配使用delete[]，delete[]多次调用析构函数，销毁数组中的每个对象。而malloc则只能sizeof(int) * n&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;内存溢出&lt;br&gt;
+指程序申请内存时，没有足够的内存供申请者使用。内存溢出就是你要的内存空间超过了系统实际分配给你的空间，此时系统相当于没法满足你的需求，就会报内存溢出的错误&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;内存溢出原因：&lt;br&gt;
+内存中加载的数据量过于庞大，如一次从数据库取出过多数据集合类中有对对象的引用，使用完后未清空，使得不能回收&lt;br&gt;
+代码中存在死循环或循环产生过多重复的对象实体使用的第三方软件中的BUG启动参数内存值设定的过小&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;内存泄漏&lt;br&gt;
+内存泄漏是指由于疏忽或错误造成了程序未能释放掉不再使用的内存的情况。内存泄漏并非指内存在物理上的消失，&lt;br&gt;
+而是应用程序分配某段内存后，由于设计错误，失去了对该段内存的控制，因而造成了内存的浪费。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;内存泄漏的分类：&lt;br&gt;
+（1）堆内存泄漏 （Heap leak）。对内存指的是程序运行中根据需要分配通过malloc,realloc new等从堆中分配的一块内存，&lt;br&gt;
+再是完成后必须通过调用对应的 free或者delete 删掉。如果程序的设计的错误导致这部分内存没有被释放，&lt;br&gt;
+那么此后这块内存将不会被使用，就会产生Heap Leak。&lt;br&gt;
+（2）系统资源泄露（Resource Leak）。主要指程序使用系统分配的资源比如 Bitmap,handle ,SOCKET等没有使用&lt;br&gt;
+相应的函数释放掉，导致系统资源的浪费，严重可导致系统效能降低，系统运行不稳定。&lt;br&gt;
+（3）没有将基类的析构函数定义为虚函数。当基类指针指向子类对象时，如果基类的析构函数不是virtual，那么子类&lt;br&gt;
+的析构函数将不会被调用，子类的资源没有正确是释放，因此造成内存泄露&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;野指针就是指向一个已删除的对象或者未申请访问受限内存区域的指针&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;引用&#34;&gt;引用&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;变量的别名&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;void test()
+{
+    int num = 10;
+    //引用，变量的别名
+    int &amp;amp;ref = num;
+    
+  	int num2 = 200;
+    //对引用的操作与操作变量本身是一样的效果
+    ref = num2;//num = num2;
+    
+    //引用的底层实现就是一个指针常量
+    int &amp;amp;ref1;//error，引用在定义时必须进行初始化，必须绑定到对象上，一旦绑定就无法改变绑定对象
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;引用作为函数参数&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//提高函数的时空效率
+void swap(int &amp;amp;x, int &amp;amp;y)
+{
+    int tmp = x;
+    x = y;
+    y = tmp;
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;引用作为函数返回值&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//不能在函数内部返回new分配的堆空间变量引用，造成内存泄漏
+int arr[10] = {1,3,5,7,9};
+int &amp;amp;func(int sz)
+{
+    return arr[sz];
+}
+
+//error，不能返回局部变量的引用，造成未知错误
+int &amp;amp;number
+{
+    int number = 10;
+    return number;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;总结&lt;/p&gt;
+&lt;p&gt;（1）在引用的使用中，单纯给某个变量取个别名是毫无意义的，引用的目的主要用于在函数参数传递中，解决大块数据或对象的传递效率和空间不如意的问题。&lt;br&gt;
+（2）用引用传递函数的参数，能保证参数传递中不产生副本，提高传递的效率，且通过const的使用，保证了引用传递的安全性&lt;br&gt;
+（3）引用与指针的区别是，指针通过某个指针变量指向一个变量后，对它所指向的变量间接操作。程序中使用指针，程序的可读性差；而引用本身就是目标变量的别名，对引用操作就是对目标变量的操作&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&#34;强制类型转换&#34;&gt;强制类型转换&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;static_cast&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//用于基本类型之间的转换
+//将void* 转化成其他类型的指针
+int inumber = 10;
+float fnumber = 0;
+fnumber = (float)inumber;
+fnumber = static_cast&amp;lt;float&amp;gt;(inumber);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;const_cast&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//去掉const属性
+const int number = 10;
+int *p = const_cast&amp;lt;int*&amp;gt;(&amp;amp;number);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;函数重载&#34;&gt;函数重载&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;规则&lt;/p&gt;
+&lt;p&gt;（1）函数名必须相同&lt;/p&gt;
+&lt;p&gt;（2）参数列表必须不同（类型、个数、顺序）&lt;/p&gt;
+&lt;p&gt;（3）返回值可以相同、可以不同&lt;/p&gt;
+&lt;p&gt;（4）仅仅返回值不同，不是函数重载&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//c不支持函数重载
+//c++支持函数重载，如何实现的？
+//使用 nm 命令查看.o文件
+//原理：c++会对函数名字做一个改编
+//在同一个作用域中，当函数名字相同时，会根据参数类型、个数、顺序进行改编
+
+//在c++中，按c的方式进行编译，同时兼任gcc
+#ifdef __cplusplus
+extern &amp;quot;C&amp;quot;
+{
+#endif
+int add(int x, int y)
+{
+    return x + y;
+}
+#ifdef __cplusplus
+}//end of extern &amp;quot;C&amp;quot;
+#endif
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;默认参数&#34;&gt;默认参数&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//传入参数缺省时，使用默认参数
+int add(int x, int y, int z = 0)
+{
+    return x + y + z;
+}
+
+//设计默认参数时，应从右边往左边连续赋值
+//从右往左入栈，所以要先给右边赋值
+int add(int x = 0, int y);//error
+int add(int x, int y = 0);//ok
+
+//应注意二义性的问题
+//在调用add(x, y)时无法区分是哪一个函数
+int add(int x, int y, int z = 0);
+int add(int x, int y);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;bool类型&#34;&gt;bool类型&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//bool占一个字节
+bool flag = false;//0为false
+bool flag2 = true;//非0为true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;inline函数&#34;&gt;inline函数&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//内联函数在声明时必须要看到实现，不能将头文件与实现文件分开
+//若要将其分开，需要在头文件中包含其实现文件&#39;.tcc&#39;
+inline int add(int x, int y)
+{
+    return x + y;
+}
+
+//注意事项：函数体中不要包含循环等复杂语句
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;异常安全&#34;&gt;异常安全&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;void test()
+{
+    int x, y;
+    cin &amp;gt;&amp;gt; x &amp;gt;&amp;gt; y;
+    try
+    {
+        if(0 == y)
+        {
+            throw y;//抛出异常
+        }
+        else
+        {
+            cout &amp;lt;&amp;lt; x &amp;lt;&amp;lt; y &amp;lt;&amp;lt; endl;
+        }
+    }
+    catch(int ix)
+    {
+        cout &amp;lt;&amp;lt; &amp;quot;catch(int)&amp;quot; &amp;lt;&amp;lt; endl;
+    }
+    catch(double dx)
+    {
+        cout &amp;lt;&amp;lt; &amp;quot;catch(double)&amp;quot; &amp;lt;&amp;lt; endl;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;字符串&#34;&gt;字符串&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//c风格字符串，采用&#39;\0&#39;结尾，长度+1
+char str1[] = &amp;quot;hello&amp;quot;;
+char str2[] = &amp;quot;world&amp;quot;;
+//可以修改内容，不能改变指针指向
+str1[0] = &#39;H&#39;;//ok
+str1 = nullptr;//error
+
+//可以修改指针指向，但不能修改所指的值
+char *pstr = &amp;quot;helloworld&amp;quot;;
+const char *pstr1 = &amp;quot;helloword&amp;quot;;//c++中加const
+pstr[0] = &#39;H&#39;;//error，段错误，无法修改
+pstr = &amp;quot;12345&amp;quot;;
+
+char *pstr2 = static_cast&amp;lt;char *&amp;gt;(malloc(len));
+
+//c风格字符串可以直接转化为string
+string str = &amp;quot;eee&amp;quot;;
+//string不能直接转化为c风格字符串
+const char *pstr = str.c_str();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;内存布局&#34;&gt;内存布局&lt;/h2&gt;
+&lt;h1 id=&#34;类和对象&#34;&gt;类和对象&lt;/h1&gt;
 &lt;h1 id=&#34;继承&#34;&gt;继承&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -724,10 +1021,10 @@ void test()
 &lt;p&gt;继承的局限：无法继承的&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;构造函数&lt;/p&gt;
+&lt;p&gt;构造函数：派生类有新增的数据成员，基类的构造函数无法初始化新增的成员&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;析构函数&lt;/p&gt;
+&lt;p&gt;析构函数：派生类有新增的数据成员，基类的析构函数无法销毁新增的成员&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;用户重载的赋值运算符&lt;/p&gt;
@@ -1048,79 +1345,122 @@ Derived::derived_ = 30
 &lt;h1 id=&#34;移动语义&#34;&gt;移动语义&lt;/h1&gt;
 &lt;h2 id=&#34;右值引用&#34;&gt;右值引用&lt;/h2&gt;
 &lt;h1 id=&#34;标准模板库stl&#34;&gt;标准模板库STL&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;六大组件&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;容器：存放数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;迭代器：广义指针，容器与算法之间的胶合剂&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;适配器：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;算法：操作数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;函数对象（仿函数）：重载了operator()&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;空间配置器：申请、释放空间&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;这六大组件的交互关系：&lt;/p&gt;
+&lt;p&gt;（1）container（容器） 通过 allocator（空间配置器） 取得数据储存空间；&lt;/p&gt;
+&lt;p&gt;（2）algorithm（算法）通过iterator（迭代器）存取 container（容器） 内容；&lt;/p&gt;
+&lt;p&gt;（3）functor（函数对象、仿函数） 可以协助 algorithm（算法） 完成不同的策略变化；&lt;/p&gt;
+&lt;p&gt;（4）adapter（适配器） 可以修饰或套接 functor（仿函数）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;模板&#34;&gt;模板&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;1.模板的作用&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;解决强类型语言的严格性与灵活性的冲突&lt;/li&gt;
-&lt;li&gt;强类型语言：C++/Java，有类型定义，能进行安全检查，编译型语言，但灵活性不够&lt;/li&gt;
-&lt;li&gt;弱类型语言：js/python，定义变量直接使用let/var，没有严格的类型，解释型语言，错误留到运行时，灵活但不安全&lt;/li&gt;
+&lt;li&gt;解决强类型语言的严格性与灵活性的冲突：将类型抽象&lt;/li&gt;
+&lt;li&gt;强类型语言：C++/Java，有类型定义；能进行安全检查；编译型语言；灵活性不够&lt;/li&gt;
+&lt;li&gt;弱类型语言：js/python，定义变量直接使用let/var，没有严格的类型；解释型语言；错误留到运行时；灵活但不安全&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;2.模板的特征&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;定义模板&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//&amp;lt;&amp;gt;为模板参数列表
-//class/typename在此处作用完全一样
+&lt;li&gt;模板的定义&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//&amp;lt;...&amp;gt;为模板参数列表
 template &amp;lt;class/typename T&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;函数模板&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;lt;iostream&amp;gt;
-using std::endl;
-using std::cout;
-
-//模板不能将声明与实现分开（类似于inline），可以在头文件中实现，或者以包含&#39;.tcc&#39;文件的形式
-//调用函数add()时，[函数模板]根据传入参数进行类型推导（实例化）得到[模板函数]
+&lt;ul&gt;
+&lt;li&gt;函数模板&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//1.函数模板
+//模板不能将声明和实现分开
 template &amp;lt;typename T&amp;gt;
 T add(T x, T y)
 {
-    cout &amp;lt;&amp;lt; &amp;quot;T add(T, T)&amp;quot; &amp;lt;&amp;lt; endl;
     return x + y;
 }
 
-//1.函数模板与普通函数可以进行重载
-//2.普通函数优先于函数模板执行
+//2.普通函数与函数模板
+//普通函数与函数模板可以进行重载
+//普通函数优先与函数模板执行
 int add(int x, int y)
 {
-    cout &amp;lt;&amp;lt; &amp;quot;int add(int, int)&amp;quot; &amp;lt;&amp;lt; endl;
     return x + y;
 }
-//3.函数模板与函数模板之间可以进行重载
+//函数模板与函数模板可以进行重载
 template &amp;lt;typename T&amp;gt;
 T add(T x, T y, T z)
 {
-    cout &amp;lt;&amp;lt; &amp;quot;T add(T, T, T)&amp;quot; &amp;lt;&amp;lt; endl;
     return x + y + z;
 }
 
-//模板特化
-//1.全特化：将模板的参数[全部]以特殊形式写出
-//2.偏特化：将模板的参数[部分]以特殊形式写出
-template &amp;lt;&amp;gt;
-const char* add(const char* p1, const char* p2)
+//3.实例化
+//        实例化（类型推导）
+//函数模板-----------------&amp;gt;模板函数
+void test()
 {
-    size_t len = strlen(p1) + strlen(p2) + 1;
-    char* ptmp = new char[10]();
+    double d = 3.3;
+    int a = 3, b = 4;
+    //显示实例化add&amp;lt;int&amp;gt;(a, b)
+    //显示的写出类型，不需类型推导
+    cout &amp;lt;&amp;lt; add&amp;lt;int&amp;gt;(a, b) &amp;lt;&amp;lt; endl;
+    //隐式实例化add(a, b)
+    //不写出类型，需要类型推导
+    cout &amp;lt;&amp;lt; add(a, b) &amp;lt;&amp;lt; endl;
+    //如果只有函数模板的形式，不能传递不同类型的参数add(int, double)
+    //如果写出具体类型，则可以传递不同类型的参数，会进行隐式转换
+    cout &amp;lt;&amp;lt; add(a, d) &amp;lt;&amp;lt; endl;
+}
+
+//4.模板的特化
+//对于const char*类型的两个对象不能直接进行相加
+//全特化：将模板参数全部以特殊形式写出
+//偏特化：将模板参数部分以特殊形式写出
+template&amp;lt;&amp;gt;
+const char *add(const char *p1, const char *p2)
+{
+    size_t len1 = strlen(p1);
+    size_t len2 = strlen(p2);
+    size_t len = len1 + len2 + 1;
+    char *ptmp = (char*)malloc(len);
+    memset(ptmp, 0, len);
     strcpy(ptmp, p1);
     strcat(ptmp, p2);
     return ptmp;
 }
 
-//模板参数
-//1.类型参数
-//2.非类型参数，整型：bool/short/int/long/long long（与浮点数区别）
-//3.类型参数、非类型参数都可以设置默认值
+//5.模板参数：分为类型参数，非类型参数
+//T为类型参数，kMin非类型参数
+//非类型参数只能是整型（非double\float）
+//类型参数、非类型参数都可以设置默认值
 template &amp;lt;typename T = int, short kMin = 10&amp;gt;
 T multiply(T x, T y)
 {
     return x * y * kMin;
 }
 
+//6.成员函数写为模板
 class Point
 {
 public:
-    //成员函数可以写成模板
     template &amp;lt;typename T = int&amp;gt;
     T func()
     {
@@ -1131,62 +1471,74 @@ private:
     double _dy;
 };
 
-void test()
+//7.模板的发生时机
+//编译时确定
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;可变模板参数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//1.Args模板参数包
+//template &amp;lt;typename T1, typename T2&amp;gt;
+template &amp;lt;typename... Args&amp;gt;
+//2.args函数参数包
+void show(Args... args)
 {
-    int x1 = 3, y1 = 4, z1 = 5;
-    
-    //显示实例化：不需要进行推导
-    cout &amp;lt;&amp;lt; add&amp;lt;int&amp;gt;(x1, y1) &amp;lt;&amp;lt; endl;
-    
-    //隐式实例化：需要进行类型推导
-    cout &amp;lt;&amp;lt; add(x1, y1) &amp;lt;&amp;lt; endl;
-    cout &amp;lt;&amp;lt; add(x1, y1, z1) &amp;lt;&amp;lt; endl;
-    
-    double x2 = 3.3;
-    
-    //如果只有函数模板形式，x1、x2类型不同会报错
-    //若有具体类型，则会进行隐式转换，这里将double--&amp;gt;int
-    cout &amp;lt;&amp;lt; add(x1, x2) &amp;lt;&amp;lt; endl;
-    
-    const char* p1 = &amp;quot;111&amp;quot;;
-    const char* p2 = &amp;quot;222&amp;quot;;
-    cout &amp;lt;&amp;lt; add(p1, p2) &amp;lt;&amp;lt; endl;
-    
-    cout &amp;lt;&amp;lt; multiply(x, y) &amp;lt;&amp;lt; endl;
-    cout &amp;lt;&amp;lt; multiply&amp;lt;double, 5&amp;gt;(x, y) &amp;lt;&amp;lt; endl;
-    
-    Point pt(1.2, 1.3);
-    cout &amp;lt;&amp;lt; pt.func&amp;lt;int&amp;gt;() &amp;lt;&amp;lt; endl;
+    //计算参数包中的参数个数
+    cout &amp;lt;&amp;lt; &amp;quot;sizeof...(Args) = &amp;quot; &amp;lt;&amp;lt; sizeof...(Args) &amp;lt;&amp;lt; endl;
+    cout &amp;lt;&amp;lt; &amp;quot;sizeof...(args) = &amp;quot; &amp;lt;&amp;lt; sizeof...(args) &amp;lt;&amp;lt; endl;
 }
 
-int main()
+void test1()
 {
-    test();
+    show(1, true, 2.2, &amp;quot;hello&amp;quot;);
+}
+
+//3.递归打印参数包内容
+//递归出口
+void print()
+{
+    cout &amp;lt;&amp;lt; endl;
+}
+
+template &amp;lt;typename T, typename... Args&amp;gt;
+void print(T t, Args... args)
+{
+    cout &amp;lt;&amp;lt; t &amp;lt;&amp;lt; &amp;quot; &amp;quot;;
+    //...放在参数左边时为打包
+    //...放在参数右边时为解包
+    print(args...);
+}
+
+void test2()
+{
+    print(1, 2, 3, 4);
+}
+
+//4.递归求和
+//递归出口
+int sum()
+{
     return 0;
 }
-/*
-测试结果
-T add(T, T)
-7
 
-int add(int, int)
-7
+template &amp;lt;typename U, typename... T&amp;gt;
+U sum(U u, T... t)
+{
+    return u + sum(t...);
+}
 
-T add(T, T, T)
-12
-
-111222
-*/
+void test3()
+{
+    cout &amp;lt;&amp;lt; sum(1,2,3,4) &amp;lt;&amp;lt; endl;
+}
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;类模板&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-using std::endl;
-using std::cout;
-using std::string;
-
+&lt;ul&gt;
+&lt;li&gt;类模板&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//用模板实现一个stack
+//版本成员函数不要写为虚函数
+//虚函数为实现动态多态，发生在运行时
+//而模板需要在编译时进行示例化，矛盾
 template &amp;lt;typename T, size_t kSize = 10&amp;gt;
 class Stack
 {
@@ -1252,106 +1604,587 @@ T Stack&amp;lt;T, kSize&amp;gt;::top()
 {
     return data_[top_];
 }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;容器&#34;&gt;容器&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;1.序列式容器&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;vector&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deque&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;list&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//以下为vector、deque、list通用的操作(例外的情况在下面给出)，以vector为例
 
+//注意：其中list不支持下标访问，为什么？
+//list的底层实现时一个双向链表，其在逻辑上连续，物理上不连续，不支持下标访问
+
+//注意：vector不支持在头部插入、删除，为什么？
+//其逻辑结构、物理结构都连续，若在其头部插入、删除，要将其后所有元素向后、向前位移，这样效率较低
+
+//注意：vector中使用insert时，会出现迭代器失效的问题，为什么？
+//在vector插入数据时，当数据个数超过vector当前容量，就会进行扩容
+//而在扩容操作实际上是开辟了一块更大的新空间，将老空间的数据拷贝到新空间，并释放老空间，所以会导致迭代器失效
+//解决办法：在insert后重置迭代器即可
+
+//注意：在vector中，使用erase时，迭代器也存在问题
+//因为连续空间在删除数据时，会发生数据的移动，在删除一个元素后，后续数据会依次向前移动
+//此时下一个元素会移动到当前删除位置，而迭代器会移动到下一个位置，导致迭代器少遍历一个元素
+
+//注意：deque、vector使用insert的效率都不高，因为都需要大量的移动元素
+
+//注意：clear清空所有元素，只会使size归0，并不会使capacity归0；
+//使用shrink_to_fit回收多余的空间，使capacity归0
+//list不支持shrink_to_fit、capacity，为什么？
+//因为list在删除元素的同时也将房间一同释放掉了
+//deque不支持capacity
 void test()
 {
-    Stack&amp;lt;int&amp;gt; st1;
-    Stack&amp;lt;double, 20&amp;gt; st2;
-    Stack&amp;lt;string, 30&amp;gt; st3;
-}
+    //1.初始化
+    //第一参数为个数，第二参数为初始化值
+    //若不传入第二参数，则默认初始化为0
+    vector&amp;lt;int&amp;gt; number(10, 2);
+    //使用迭代器范围初始化
+    int arr[] = {1,3,5,7,9,2,4,6,8,10};
+    vector&amp;lt;int&amp;gt; number1(arr, arr + 10);
+    //使用大括号初始化
+    vector&amp;lt;int&amp;gt; number2 = {1,2,3,4,5,6,7,8,9,10};
 
-int main()
-{
-    test();
-    return 0;
+    //2.遍历
+    //下标遍历
+    for(size_t idx = 0; idx != number.size(); ++idx)
+    {
+        cout &amp;lt;&amp;lt; number[idx] &amp;lt;&amp;lt; &amp;quot; &amp;quot;;
+    }
+    cout &amp;lt;&amp;lt; endl;
+    //迭代器遍历
+    vector&amp;lt;int&amp;gt;::const_iterator cit;
+    for(cit = number1.begin(); cit != number1.end(); ++cit)
+    {
+        cout &amp;lt;&amp;lt; *cit &amp;lt;&amp;lt; &amp;quot; &amp;quot;;
+    }
+    cout &amp;lt;&amp;lt; endl;
+    //使用auto+迭代器遍历
+    auto it = number.begin();
+    for(; it != number.end(); ++it)
+    {
+        cout &amp;lt;&amp;lt; *it &amp;lt;&amp;lt; &amp;quot; &amp;quot;;
+    }
+    cout &amp;lt;&amp;lt; endl;
+    //使用auto遍历
+    for(auto &amp;amp;elem: number2)
+    {
+        cout &amp;lt;&amp;lt; elem &amp;lt;&amp;lt; &amp;quot; &amp;quot;;
+    }
+    cout &amp;lt;&amp;lt; endl;
+    
+    //3.push_back\pop_back在尾部插入、删除（尾插法）
+    number.push_back(11);
+    number.pop_back();
+    
+    //4.push_front\pop_front在头部插入、删除（头插法），vector不支持
+    list&amp;lt;int&amp;gt; number1 = {1,2,3,4,5,6,7,8};
+    number1.push_front(11);
+    number1.pop_front();
+    
+    //5.使用insert插入
+    //可以在任意位置插入，以迭代器的形式
+    auto it = number.begin();
+    ++it;
+    ++it;
+    //插入单个数据（插入100）
+    it = number.insert(it, 100);
+    //插入多个数据（3个30）
+    it = number.insert(it, 3, 30);
+    //插入迭代器范围的数
+    int arr[5] = {10,20,30,40,50};
+    number.insert(it, arr, arr + 5);
+    
+    //6.使用erase删除
+    //删除位于pos的元素
+    number.erase(pos);
+    //删除迭代器范围的数
+    int arr[5] = {10,20,30,40,50};
+    number.erase(arr, arr + 5);
 }
 &lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;list&lt;/code&gt;的特殊函数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//sort，对元素进行排序
+list.sort();
+//merge，合并两个已排序的链表，先排序
+list1.sort();
+list2.sort();
+list1.merge(list2);
+//reverse，逆转容器中的数据
+list.reverse();
+//unique，删除连续重复的元素，只保留一个，一般配合sort使用
+list.sort();
+list.unique();
+//splice，将一个链表中的元素剪切到另一个链表（指定位置）
+//剪切所有元素
+list1.splice(pos, list2);
+//剪切一个元素
+list1.splice(pos, list2, list2.begin());
+//剪切指定范围的元素
+list1.splice(pos, list2, list2.begin(), list2.begin() + 2);
+//可以在同一个列表进行剪切
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;vector&lt;/code&gt;的底层实现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class _Vector_alloc_base
+{
+protected:
+    //三个指针位于栈区
+    //指向分配内存的首地址
+  _Tp* _M_start;
+    //最后容器中最后一个元素的下一个地址
+  _Tp* _M_finish;
+    //指向分配内存的末尾
+  _Tp* _M_end_of_storage;    
+}
+
+class _Vector_base
+:public _Vector_alloc_base{ }
+
+class vector
+:protected _Vector_base
+{
+public:
+  //类型萃取：对不同类型的对象调用不同的方法；
+  //提取出自定义类型进行深拷贝，而内置类型进行浅拷贝
+  typedef _Tp value_type;
+  typedef value_type* pointer;
+  typedef const value_type* const_pointer;
+  typedef value_type* iterator;
+  typedef const value_type* const_iterator;
+  typedef value_type&amp;amp; reference;
+  typedef const value_type&amp;amp; const_reference;
+  typedef size_t size_type;
+  typedef ptrdiff_t difference_type;    
+}
+
+//vector中的at与下标访问运算符有什么区别？
+//使用at进行下标访问时，会先进行检查，判断下标是否越界
+//如果越界，则会抛出异常，而下标访问运算符有越界的问题
+  reference operator[](size_type __n)
+    { return *(begin() + __n); }
+
+  void _M_range_check(size_type __n) const {
+    if (__n &amp;gt;= this-&amp;gt;size())
+      __stl_throw_range_error(&amp;quot;vector&amp;quot;);
+  }
+  reference at(size_type __n)
+    { _M_range_check(__n); return (*this)[__n]; }
+
+//push_back
+  void push_back(const _Tp&amp;amp; __x) {
+    if (_M_finish != _M_end_of_storage) {
+      construct(_M_finish, __x);
+      ++_M_finish;
+    }
+    else
+      _M_insert_aux(end(), __x);
+  }
+//_M_insert_aux()
+	//底层两倍扩容
+    const size_type __old_size = size();
+    const size_type __len = __old_size != 0 ? 2 * __old_size : 1;
+    _M_start = __new_start;
+    _M_finish = __new_finish;
+    _M_end_of_storage = __new_start + __len;
+
+//data()
+//获取第一个元素的地址
+&amp;amp;number;//error
+&amp;amp;number[0];//ok
+&amp;amp;*number.begin();//ok
+int* pdata = number.data();//ok
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;vector&lt;/code&gt;扩容相关问题&lt;/p&gt;
+&lt;p&gt;（1）对于&lt;code&gt;push_back&lt;/code&gt;之所以可以进行两倍扩容，是因为其每次只插入一个元素，不会需要二次扩容&lt;/p&gt;
+&lt;p&gt;（2）对于&lt;code&gt;insert&lt;/code&gt;而言，插入元素的个数是不确定的，此时两倍扩容已经不再适用&lt;/p&gt;
+&lt;p&gt;（3）&lt;code&gt;size() = n, capacity() = m&lt;/code&gt;插入元素个数为&lt;code&gt;t&lt;/code&gt;个&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;t &amp;lt;= m - n&lt;/code&gt;，此时不会发生扩容&lt;/li&gt;
+&lt;li&gt;以下为&lt;code&gt;m - n &amp;lt; t&lt;/code&gt; 时：&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;t &amp;lt; n&lt;/code&gt;，此时扩容为&lt;code&gt;2 * n&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;n &amp;lt; t &amp;lt; m&lt;/code&gt;，此时扩容为&lt;code&gt;n + t&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;t &amp;gt; m&lt;/code&gt;，此时为&lt;code&gt;n + t&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;可变模板参数&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;lt;iostream&amp;gt;
-using std::endl;
-using std::cout;
-
-//Args模板参数包
-template &amp;lt;typename... Args&amp;gt;
-//args函数参数包
-void display(Args... args)
+&lt;p&gt;&lt;code&gt;deque&lt;/code&gt;底层实现&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class _Deque_alloc_base
 {
-    cout &amp;lt;&amp;lt; &amp;quot;Args_size = &amp;quot; &amp;lt;&amp;lt; sizeof...(Args) &amp;lt;&amp;lt; endl;
-    cout &amp;lt;&amp;lt; &amp;quot;args_size = &amp;quot; &amp;lt;&amp;lt; sizeof...(args) &amp;lt;&amp;lt; endl;
+protected:
+  //deque底层片段内连续，片段间不连续
+  //通过中控器数组将片段相连
+  //中控器数组
+  _Tp** _M_map;
+  //中控器数组大小
+  size_t _M_map_size;
 }
 
-//递归打印出口
-void print()
+class _Deque_base
+: public _Deque_alloc_base
 {
-    cout &amp;lt;&amp;lt; endl;
-}
-//...在参数左边为打包，在参数右边为解包
-template &amp;lt;typename T, typename... Args&amp;gt;
-void print(T t, Args... args)
-{
-    cout &amp;lt;&amp;lt; t &amp;lt;&amp;lt; endl;
-    print(args...);
+protected:
+  //第一个片段，其中的cur指针指向第一个元素
+  iterator _M_start;
+  //最后一个片段，其中的cur指针指向最后一个元素的下一个位置
+  iterator _M_finish;
 }
 
-//递归出口
-int sum()
+class deque
+: protected _Deque_base
 {
-    return 0;
-}
-template &amp;lt;typename U, typename... T&amp;gt;
-U sum(U u, T ...t)
-{
-    return u + sum(t...);
+    
 }
 
+struct _Deque_iterator
+{
+  //指向当前元素
+  _Tp* _M_cur;
+  //指向当前片段的首地址
+  _Tp* _M_first;
+  //指向当前片段最后元素的下一个位置
+  _Tp* _M_last;
+  //二级指针，指向中控器对应当前片段的指针
+  _Map_pointer _M_node;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;2.关联式容器&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;set&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;map&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;multiset&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;multimap&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;3.无序关联式容器&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;unordered_set&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;unordered_map&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;unordered_multiset&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;unordered_multimap&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;容器适配器&#34;&gt;容器适配器&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;stack&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;queue&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;priority_queue&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;迭代器&#34;&gt;迭代器&lt;/h2&gt;
+&lt;h2 id=&#34;算法&#34;&gt;算法&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;for_each&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//一元函数：函数参数只有一个
+//一元断言：函数参数只有一个，返回值为bool类型
+void print(int &amp;amp;num)
+{
+    ++num;
+    cout &amp;lt;&amp;lt; num &amp;lt;&amp;lt; &amp;quot; &amp;quot;;
+}
 void test()
 {
-    display();
-    //template &amp;lt;typename T&amp;gt;
-    //void display(T t)
-    display(1);
+    vector&amp;lt;int&amp;gt; number = {1,3,4,5,6,8,7,9};
 
-    //template &amp;lt;typename T1, typename T2, typename T3, typename T4&amp;gt;
-    //void display(T1 t1, T2 t2, T3 t3, T4 t4)
-    display(1, 2.2, true, &amp;quot;hello&amp;quot;);
-
+    copy(number.begin(), number.end(), ostream_iterator&amp;lt;int&amp;gt;(cout, &amp;quot; &amp;quot;));
     cout &amp;lt;&amp;lt; endl;
 
-    //递归打印
-    print(1);
-    print(1, 2.2, true, &amp;quot;hello&amp;quot;);
+    //可以修改容器中的值
+    for_each(number.begin(), number.end(), print);
+    cout &amp;lt;&amp;lt; endl;
 
-    //求和
-    cout &amp;lt;&amp;lt; &amp;quot;1~10_sum = &amp;quot; &amp;lt;&amp;lt; sum(1,2,3,4,5,6,7,8,9,10) &amp;lt;&amp;lt; endl;
+    //c++11中的lambda表达式，[]表明为匿名函数
+    //方便阅读，但不要写过于复杂的函数
+    for_each(number.begin(), number.end(), [] (int &amp;amp;num){
+             ++num;
+             cout &amp;lt;&amp;lt; num &amp;lt;&amp;lt; &amp;quot; &amp;quot;;
+             });
+    cout &amp;lt;&amp;lt; endl;
+
+    copy(number.begin(), number.end(), ostream_iterator&amp;lt;int&amp;gt;(cout, &amp;quot; &amp;quot;));
+    cout &amp;lt;&amp;lt; endl;
 }
-
-int main()
-{
-    test();
-    return 0;
-}
-/*
-测试结果
-Args_size = 0
-args_size = 0
-Args_size = 1
-args_size = 1
-Args_size = 4
-args_size = 4
-
-1
-
-1
-2.2
-1
-hello
-
-1~10_sum = 55
-*/
 &lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;查找&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;void test1()
+{
+    vector&amp;lt;int&amp;gt; number = {1,3,4,5,6,8,7,9};
+
+    copy(number.begin(), number.end(), ostream_iterator&amp;lt;int&amp;gt;(cout, &amp;quot; &amp;quot;));
+    cout &amp;lt;&amp;lt; endl;
+    
+    //查找3，返回其个数
+    size_t cnt1 = count(number.begin(), number.end(), 3);
+    cout &amp;lt;&amp;lt; &amp;quot;cnt1 = &amp;quot; &amp;lt;&amp;lt; cnt1 &amp;lt;&amp;lt; endl;
+
+    //查找3，返回其迭代器
+    auto it = find(number.begin(), number.end(), 3);
+    cout &amp;lt;&amp;lt; &amp;quot;*it = &amp;quot; &amp;lt;&amp;lt; *it &amp;lt;&amp;lt; endl;
+
+    //二分查找，配合排序使用
+    sort(number.begin(), number.end());
+    bool ret = binary_search(number.begin(), number.end(), 3);
+    cout &amp;lt;&amp;lt; &amp;quot;ret = &amp;quot; &amp;lt;&amp;lt; ret &amp;lt;&amp;lt; endl;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;remove_if&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;void test2()
+{
+    vector&amp;lt;int&amp;gt; number = {1,3,4,5,6,8,7,9};
+
+    copy(number.begin(), number.end(), ostream_iterator&amp;lt;int&amp;gt;(cout, &amp;quot; &amp;quot;));
+    cout &amp;lt;&amp;lt; endl;
+    
+    //返回要删除部分的首迭代器：为了适应不同的容器,使算法更具有通用性
+    auto it = remove_if(number.begin(), number.end(), judge);
+    number.erase(it, number.end());
+    copy(number.begin(), number.end(), ostream_iterator&amp;lt;int&amp;gt;(cout, &amp;quot; &amp;quot;));
+    cout &amp;lt;&amp;lt; endl;
+
+    //lambda表达式
+    auto it1 = remove_if(number.begin(), number.end(), [] (int val)
+                        {
+                            return val &amp;gt; 4;
+                        });
+    number.erase(it1, number.end());
+    copy(number.begin(), number.end(), ostream_iterator&amp;lt;int&amp;gt;(cout, &amp;quot; &amp;quot;));
+    cout &amp;lt;&amp;lt; endl;
+
+    //读写操作不要混合使用
+    vector&amp;lt;int&amp;gt; vec;
+    vec.push_back(1);
+    bool flag = true;
+    for(auto it = vec.begin(); it != vec.end(); ++it)
+    {
+        cout &amp;lt;&amp;lt; *it &amp;lt;&amp;lt; endl;
+        if(flag)
+        {
+            //底层发生了扩容,迭代器失效
+            vec.push_back(2);
+            flag = false;
+
+            //可以通过充值迭代器来解决
+            it = vec.begin();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;空间配置器&#34;&gt;空间配置器&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;空间申请、释放&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;__malloc_alloc_template
+typedef __malloc_alloc_template&amp;lt;0&amp;gt; malloc_alloc;
+typedef malloc_alloc alloc;
+typedef alloc _Alloc;
+
+static void* allocate(size_t __n)
+{
+  void* __result = malloc(__n);
+  if (0 == __result) __result = _S_oom_malloc(__n);//oom：out of memory
+  return __result;
+}
+
+static void deallocate(void* __p, size_t /* __n */)
+{
+  free(__p);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;对象构建、销毁&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;面向对象设计&#34;&gt;面向对象设计&lt;/h1&gt;
+&lt;h2 id=&#34;为什么需要面向对象设计&#34;&gt;为什么需要面向对象设计&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;软件一定会变化&lt;/li&gt;
+&lt;li&gt;软件设计应能应对软件的变化、扩展&lt;/li&gt;
+&lt;li&gt;&lt;font color=&#39;red&#39;&gt;以最小的代价满足变化、不改变现有的代码进行扩展&lt;/font&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;uml语言&#34;&gt;UML语言&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;软件开发的生命周期：分析、设计、编码、测试、运行、维护&lt;/p&gt;
 &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Unifed Modeling Language，统一建模语言、标准建模语言&lt;/p&gt;
+&lt;p&gt;静态图例：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;font color=&#39;red&#39;&gt;类图（class diagram）&lt;/font&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对象图（object diagram）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用例图（use case diagram）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;组件图（component diagram）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;部署图（deployment diagram）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;组合结构图（composite diagram）&lt;/p&gt;
+&lt;p&gt;动态图例：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;font color=&#39;red&#39;&gt;序列图（sequence diagram）&lt;/font&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;协作图（collaboration diagram）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;状态图（state diagram）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;活动图（activity diagram）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;类与类之间的关系&#34;&gt;类与类之间的关系&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;1.继承关系（Generalization）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基类部分成为派生类的一部分&lt;/li&gt;
+&lt;li&gt;&lt;font color=&#39;red&#39;&gt;语义上：A is B&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;在代码上：继承&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;2.关联关系（Association）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;双向的关联关系：彼此知道对方的存在，但彼此并不负责对方的生命周期&lt;/li&gt;
+&lt;li&gt;单向的关联关系：A知道B的存在，但B并不知道A的存在，彼此并不负责对方的生命周期&lt;/li&gt;
+&lt;li&gt;&lt;font color=&#39;red&#39;&gt;在代码上表现为：指针、引用&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;&lt;font color=&#39;red&#39;&gt;语义上：A has B&lt;/font&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;3.聚合关系（Aggregation）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分为整体和局部&lt;/li&gt;
+&lt;li&gt;&lt;font color=&#39;red&#39;&gt;整体并不负责局部对象的销毁&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;语义上：A has B&lt;/li&gt;
+&lt;li&gt;代码上：数据成员以指针、引用的形式存在&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;4.组合关系（Composition）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分为整体和局部&lt;/li&gt;
+&lt;li&gt;&lt;font color=&#39;red&#39;&gt;整体负责局部对象的销毁&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;语义上：A has B&lt;/li&gt;
+&lt;li&gt;代码上：数据成员以子对象成员的形式存在&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;5.依赖关系（Dependency）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A use B，是一种临时的、偶然的关系&lt;/li&gt;
+&lt;li&gt;B作为A的&lt;font color=red&gt;成员函数参数&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;B作为A的成员函数的&lt;font color=red&gt;局部变量&lt;/font&gt;（B作为A的成员函数的返回值）&lt;/li&gt;
+&lt;li&gt;A的成员函数调用B的静态方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;6.总结&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;继承是类与类之间的纵向关系&lt;/li&gt;
+&lt;li&gt;关联、聚合、组合、依赖是横向关系&lt;/li&gt;
+&lt;li&gt;耦合强弱：依赖 &amp;lt; 关联 &amp;lt; 聚合 &amp;lt; 组合 &amp;lt; 继承&lt;/li&gt;
+&lt;li&gt;组合+依赖可以替代继承&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;面向对象设计原则&#34;&gt;面向对象设计原则&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;1.单一职责原则&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;font color=red&gt;一个类最好只做一件事，只有一个引起它变化的原因&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;把多个功能耦合在一起，当其中一个功能发生变化时，可能会削弱或抑制其他功能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;2.开放闭合原则&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;font color=red&gt;对扩展开放，对修改关闭&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;核心思想：对抽象编程&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;3.里氏替换原则&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;核心思想：派生类必须能够替换基类&lt;/li&gt;
+&lt;li&gt;&lt;font color=red&gt;派生类可以扩展基类的功能，但不能改变基类的功能&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;不能隐藏父类的非抽象方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;4.接口分离原则&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用多个小而专的接口，不要使用一个大的总接口&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;5.依赖倒置原则&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;面向接口编程，依赖于抽象&lt;/li&gt;
+&lt;li&gt;&lt;font color=red&gt;高层模块不依赖于低层模块，二者都依赖于抽象&lt;/font&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;6.迪米特法则&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;最少知识原则&lt;/li&gt;
+&lt;li&gt;一个软件应该尽可能少的与其他实体发生相互作用&lt;/li&gt;
+&lt;li&gt;优点：降低类与类之间的耦合，减少类与类之间的关联程度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;7.组合复用原则&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;尽量采用组合、聚合的方式，而不是继承来达到软件复用的目的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;设计模式&#34;&gt;设计模式&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;1.分类&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建型设计模式：描述如何创建对象&lt;/li&gt;
+&lt;li&gt;结构型设计模式：描述如何实现类和对象的组合&lt;/li&gt;
+&lt;li&gt;行为型设计模式：描述类和对象怎么交互以及怎么样分配职责&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;2.创建型设计模式&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;单例模式&lt;/li&gt;
+&lt;li&gt;工厂方法模式&lt;/li&gt;
+&lt;li&gt;抽象工厂模式&lt;/li&gt;
+&lt;li&gt;原型模式&lt;/li&gt;
+&lt;li&gt;建造者模式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;3.结构型设计模式&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;适配器模式&lt;/li&gt;
+&lt;li&gt;桥接模式&lt;/li&gt;
+&lt;li&gt;组合模式&lt;/li&gt;
+&lt;li&gt;装饰模式&lt;/li&gt;
+&lt;li&gt;外观模式&lt;/li&gt;
+&lt;li&gt;享元模式&lt;/li&gt;
+&lt;li&gt;代理模式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;4.行为型设计模式&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;职责链模式&lt;/li&gt;
+&lt;li&gt;命令模式&lt;/li&gt;
+&lt;li&gt;解释器模式&lt;/li&gt;
+&lt;li&gt;迭代器模式&lt;/li&gt;
+&lt;li&gt;中介者模式&lt;/li&gt;
+&lt;li&gt;备忘录模式&lt;/li&gt;
+&lt;li&gt;观察者模式&lt;/li&gt;
+&lt;li&gt;状态模式&lt;/li&gt;
+&lt;li&gt;策略模式&lt;/li&gt;
+&lt;li&gt;模板方法模式&lt;/li&gt;
+&lt;li&gt;访问者模式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;font color=red&gt;5.工厂模式&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;使用场景：&lt;/p&gt;
+&lt;p&gt;（1）简单对象不需要使用工厂模式&lt;/p&gt;
+&lt;p&gt;（2）复杂对象才需要使用工厂模式&lt;/p&gt;
+&lt;p&gt;（3）对于不确定的对象，可以使用工厂模式&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;font color=red&gt;6.观察者模式&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;定义对象间一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都会收到通知，并更新自己的状态&lt;/li&gt;
+&lt;li&gt;分类：推模式，观察者被动获取消息；拉模式，观察者主动获取消息&lt;/li&gt;
 &lt;/ul&gt;
 ">C++</a>
       </div>
